@@ -1,0 +1,26 @@
+package dao;
+
+import java.util.ArrayList;
+
+import util.ConnectionPool;
+
+public interface DAOFunction<T> {
+	
+	 boolean addT(T var1);
+
+	 boolean editT(T var1);
+
+	 boolean deleteT(T var1);
+
+	 T getTById(int var1);
+
+	 T getTByTitle(String var1);
+
+	 ArrayList<T> getListT(T var1, int var2, int var3);
+
+	 ArrayList<T> getListT();
+
+	 ConnectionPool getCP();
+
+	 void releaseConnection();
+}

@@ -1,0 +1,37 @@
+package controller;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import dao.BookFunctionImpl;
+import dao.DAOFunction;
+import model.Book;
+import util.ConnectionPool;
+import util.ConnectionPoolImpl;
+
+@WebServlet("/update-book")
+public class EditBook extends HttpServlet {
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		String bookId = req.getParameter("bookId");
+		
+//		ConnectionPool cp = new ConnectionPoolImpl();
+//        DAOFunction<Book> f = new BookFunctionImpl(cp);
+//        
+//        if (bookId != null) {        	
+//        	int book_id = Integer.parseInt(bookId);
+//        	Book book = f.getTById(book_id);
+//        }
+//		
+        req.getRequestDispatcher("editBook.jsp").forward(req, resp);
+	}
+	
+	
+}

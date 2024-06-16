@@ -1,0 +1,7 @@
+INDEX VERSION 1.4+/Users/truongdinhhoainam/Workspace/at_school/hp_java_nang_cao/library_manager/.metadata/.plugins/org.eclipse.wst.jsdt.core/indexes
+3955906050.index
+3249274554.index
+576244092.index
+495214104.index
+82324634.index
+1596649347.index
