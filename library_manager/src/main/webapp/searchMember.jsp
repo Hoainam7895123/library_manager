@@ -1,7 +1,7 @@
 <%@page import="java.util.ArrayList"%>
-<%@page import="member.memberModel.Member"%>
-<%@page import="member.memberController.*"%>
-<%@page import="member.memberDAO.*"%>
+<%@page import="model.Member"%>
+<%@page import="controller.member.*"%>
+<%@page import="dao.*"%>
 <%@page import="util.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -362,20 +362,10 @@
         </a>
         <ul id="forms-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
           <li>
-            <a href="listBook.jsp">
+            <a href="/library_manager/books">
               <i class="bi bi-circle"></i><span>Danh sách sách</span>
             </a>
           </li>
-          <!-- <li>
-            <a href="forms-layouts.html" >
-              <i class="bi bi-circle"></i><span>Thêm sách</span>
-            </a>
-          </li>
-          <li>
-            <a href="forms-editors.html" class="active">
-              <i class="bi bi-circle"></i><span>Chỉnh sửa sách</span>
-            </a>
-          </li> -->
         </ul>
       </li><!-- End Forms Nav -->
 
@@ -518,23 +508,23 @@
 		<section class="section dashboard">
 			<div class="row">
 				<%
-            		String message = request.getParameter("message");
-            		if ("deleteSuccess".equals(message)) {
-        		%>
+				String message = request.getParameter("message");
+				            		if ("deleteSuccess".equals(message)) {
+				%>
         		<script type="text/javascript">
             		alert('Xóa thành viên thành công!');
         		</script>
         		<%
-            		}
+        		}
         		%>
         		<%
-            		if ("updateSuccess".equals(message)) {
+        		if ("updateSuccess".equals(message)) {
         		%>
         		<script type="text/javascript">
             		alert('Sửa thành viên thành công!');
         		</script>
         		<%
-            		}
+        		}
         		%>
 				<table class="table table-striped">
 					<thead>
@@ -550,8 +540,8 @@
 					<tbody>
 						<%
 						ArrayList<Member> members = (ArrayList<Member>) request.getAttribute("members");
-					    for (Member member : members) {
-                		%>
+									    for (Member member : members) {
+						%>
 						<tr>
 							<th scope="row"><%= member.getMember_id() %></th>
 							<td><%= member.getMember_name() %></td>

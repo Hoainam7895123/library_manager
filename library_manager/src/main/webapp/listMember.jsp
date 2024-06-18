@@ -1,7 +1,7 @@
 <%@page import="java.util.ArrayList"%>
-<%@page import="member.memberModel.Member"%>
-<%@page import="member.memberController.*"%>
-<%@page import="member.memberDAO.*"%>
+<%@page import="model.Member"%>
+<%@page import="controller.member.*"%>
+<%@page import="dao.*"%>
 <%@page import="util.*"%>
 
 
@@ -270,7 +270,6 @@
 	<!-- End Header -->
 
 	<!-- ======= Sidebar ======= -->
-	<!-- ======= Sidebar ======= -->
   <aside id="sidebar" class="sidebar">
 
     <ul class="sidebar-nav" id="sidebar-nav">
@@ -278,7 +277,7 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="books">
           <i class="bi bi-grid"></i>
-          <span>Dashboard</span>
+          <span>Trang chủ</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
@@ -366,20 +365,10 @@
         </a>
         <ul id="forms-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
           <li>
-            <a href="books">
+            <a href="/library_manager/books">
               <i class="bi bi-circle"></i><span>Danh sách sách</span>
             </a>
           </li>
-          <!-- <li>
-            <a href="forms-layouts.html" >
-              <i class="bi bi-circle"></i><span>Thêm sách</span>
-            </a>
-          </li>
-          <li>
-            <a href="forms-editors.html" class="active">
-              <i class="bi bi-circle"></i><span>Chỉnh sửa sách</span>
-            </a>
-          </li> -->
         </ul>
       </li><!-- End Forms Nav -->
 
@@ -389,7 +378,7 @@
         </a>
         <ul id="tables-nav" class="nav-content collapse show" data-bs-parent="#sidebar-nav">
           <li>
-            <a href="members" class="active">
+            <a href="/library_manager/members" class="active">
               <i class="bi bi-circle" ></i><span>Danh sách thành viên</span>
             </a>
           </li>

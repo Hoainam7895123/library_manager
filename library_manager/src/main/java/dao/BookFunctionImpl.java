@@ -10,7 +10,7 @@ import model.Book;
 import util.ConnectionPool;
 import util.ConnectionPoolImpl;
 
-public class BookFunctionImpl implements DAOFunction<Book> {
+public class BookFunctionImpl implements BookFunction<Book> {
 	
     private Connection con;
     private ConnectionPool cp;
@@ -332,7 +332,7 @@ public class BookFunctionImpl implements DAOFunction<Book> {
 
     public static void main(String[] args) {
         ConnectionPool cp = new ConnectionPoolImpl();
-        DAOFunction<Book> f = new BookFunctionImpl(cp);
+        BookFunction<Book> f = new BookFunctionImpl(cp);
 //        Book b = new Book("Tiếng Việt", "tieng-viet", 3, 1, 1941, 1);
 //        boolean x = f.deleteT(b);
 //        System.out.println(x);

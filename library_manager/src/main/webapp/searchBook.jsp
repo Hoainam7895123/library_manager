@@ -359,20 +359,10 @@
         </a>
         <ul id="forms-nav" class="nav-content collapse show" data-bs-parent="#sidebar-nav">
           <li>
-            <a href="books" class="active">
+            <a href="/library_manager/books" class="active">
               <i class="bi bi-circle"></i><span>Danh sách sách</span>
             </a>
           </li>
-          <!-- <li>
-            <a href="forms-layouts.html" >
-              <i class="bi bi-circle"></i><span>Thêm sách</span>
-            </a>
-          </li>
-          <li>
-            <a href="forms-editors.html" class="active">
-              <i class="bi bi-circle"></i><span>Chỉnh sửa sách</span>
-            </a>
-          </li> -->
         </ul>
       </li><!-- End Forms Nav -->
 
@@ -382,7 +372,7 @@
         </a>
         <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="membersl">
+            <a href="/library_manager/membersl">
               <i class="bi bi-circle"></i><span>Danh sách thành viên</span>
             </a>
           </li>
