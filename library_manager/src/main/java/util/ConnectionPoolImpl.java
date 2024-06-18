@@ -19,9 +19,9 @@ public class ConnectionPoolImpl implements ConnectionPool {
             var2.printStackTrace();
         }
 
-        this.username = "ns_manager";
-        this.password = "12345678";
-        this.url = "jdbc:mysql://localhost:3306/library_manager";
+        this.username = "root";
+        this.password = "root";
+		this.url = "jdbc:mysql://localhost:3306/quanlymem?allowMultiQueries=true";
         this.pool = new Stack();
     }
 
