@@ -10,7 +10,7 @@ import model.Book;
 import util.ConnectionPool;
 import util.ConnectionPoolImpl;
 
-public class BookFunctionImpl implements BookFunction<Book> {
+public class BookFunctionImpl implements BookFunction {
 	
     private Connection con;
     private ConnectionPool cp;
@@ -134,8 +134,9 @@ public class BookFunctionImpl implements BookFunction<Book> {
         sql.append("INSERT INTO Books(");
         sql.append("book_title, book_isbn, ");
         sql.append("author_id, category_id, book_published_year, ");
-        sql.append("book_number_of_copies)");
-        sql.append("VALUES (?, ?, ?, ?, ?, ?)");
+        sql.append("book_number_of_copies, ");
+        sql.append("book_quantity)");
+        sql.append("VALUES (?, ?, ?, ?, ?, ?, ?)");
 
         try {
             PreparedStatement pre = this.con.prepareStatement(sql.toString());
@@ -145,6 +146,7 @@ public class BookFunctionImpl implements BookFunction<Book> {
             pre.setInt(4, var1.getCategory_id());
             pre.setInt(5, var1.getBook_published_year());
             pre.setInt(6, var1.getBook_number_of_copies());
+            pre.setInt(7, var1.getBook_quantity());
             return this.exe(pre);
         } catch (SQLException var4) {
             var4.printStackTrace();
@@ -159,7 +161,7 @@ public class BookFunctionImpl implements BookFunction<Book> {
         sql.append("SET ");
         sql.append("book_title = ?, book_isbn = ?, ");
         sql.append("author_id = ?, category_id = ?, book_published_year = ?, ");
-        sql.append("book_number_of_copies = ? ");
+        sql.append("book_number_of_copies = ?, book_quantity = ? ");
         sql.append("WHERE book_id = ?;");
 
         try {
@@ -170,7 +172,8 @@ public class BookFunctionImpl implements BookFunction<Book> {
             pre.setInt(4, var1.getCategory_id());
             pre.setInt(5, var1.getBook_published_year());
             pre.setInt(6, var1.getBook_number_of_copies());
-            pre.setInt(7, var1.getBook_id());
+            pre.setInt(7, var1.getBook_quantity());
+            pre.setInt(8, var1.getBook_id());
             return this.exe(pre);
         } catch (SQLException var4) {
             var4.printStackTrace();
@@ -214,6 +217,7 @@ public class BookFunctionImpl implements BookFunction<Book> {
 				item.setCategory_id(rs.getInt("category_id"));
 				item.setBook_published_year(rs.getInt("book_published_year"));
 				item.setBook_number_of_copies(rs.getInt("book_number_of_copies"));
+//				item.setBook_quantity(rs.getInt("book_quantity"));
             }
 			
 			rs.close();
@@ -224,6 +228,16 @@ public class BookFunctionImpl implements BookFunction<Book> {
     	
         return item;
     }
+    
+    public static void main(String[] args) {
+		ConnectionPool cp = new ConnectionPoolImpl();
+		BookFunction bf = new BookFunctionImpl(cp);
+		
+		ArrayList<Book> books = bf.getByCategory("Văn Học");
+		for (Book book : books) {
+			System.out.println(book.getBook_title() + " " + book.getBook_isbn());
+		}
+	}
 
     public ArrayList<Book> getTByTitle(String title) {
         String sql = "SELECT * FROM Books WHERE book_title LIKE ?";
@@ -243,6 +257,7 @@ public class BookFunctionImpl implements BookFunction<Book> {
                     item.setBook_isbn(rs.getString("book_isbn"));
                     item.setBook_published_year(rs.getInt("book_published_year"));
                     item.setBook_number_of_copies(rs.getInt("book_number_of_copies"));
+    				item.setBook_quantity(rs.getInt("book_quantity"));
                     books.add(item);
                 }
 
@@ -254,7 +269,74 @@ public class BookFunctionImpl implements BookFunction<Book> {
         
         return books;
     }
+    
+	public ArrayList<Book> getByAuthor(String var1) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT * FROM Books ");
+		sql.append("WHERE author_id = (");
+		sql.append("SELECT author_id FROM Authors ");
+		sql.append("WHERE author_name = ?)");
+        ArrayList<Book> books = new ArrayList<>();
+        
+        try {
+        	PreparedStatement pre = this.con.prepareStatement(sql.toString());
+        	pre.setString(1, var1);
+            ResultSet rs = pre.executeQuery();
+            
+            if (rs != null) {
+                while(rs.next()) {
+                    Book item = new Book();
+                    item.setBook_id(rs.getInt("book_id"));
+                    item.setBook_title(rs.getString("book_title"));
+                    item.setBook_isbn(rs.getString("book_isbn"));
+                    item.setBook_published_year(rs.getInt("book_published_year"));
+                    item.setBook_number_of_copies(rs.getInt("book_number_of_copies"));
+    				item.setBook_quantity(rs.getInt("book_quantity"));
+                    books.add(item);
+                }
 
+                rs.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return books;
+	}
+
+	public ArrayList<Book> getByCategory(String var1) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT * FROM Books ");
+		sql.append("WHERE category_id = (");
+		sql.append("SELECT category_id FROM Categories ");
+		sql.append("WHERE category_name = ?)");
+        ArrayList<Book> books = new ArrayList<>();
+        
+        try {
+        	PreparedStatement pre = this.con.prepareStatement(sql.toString());
+        	pre.setString(1, var1);
+            ResultSet rs = pre.executeQuery();
+            
+            if (rs != null) {
+                while(rs.next()) {
+                    Book item = new Book();
+                    item.setBook_id(rs.getInt("book_id"));
+                    item.setBook_title(rs.getString("book_title"));
+                    item.setBook_isbn(rs.getString("book_isbn"));
+                    item.setBook_published_year(rs.getInt("book_published_year"));
+                    item.setBook_number_of_copies(rs.getInt("book_number_of_copies"));
+    				item.setBook_quantity(rs.getInt("book_quantity"));
+                    books.add(item);
+                }
+
+                rs.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return books;
+	}
 
     // Lấy danh sách sách nhưng phân trang
     public ArrayList<Book> getListT(Book var1, int at, int total) {
@@ -275,6 +357,7 @@ public class BookFunctionImpl implements BookFunction<Book> {
                     item.setBook_isbn(rs.getString("book_isbn"));
                     item.setBook_published_year(rs.getInt("book_published_year"));
                     item.setBook_number_of_copies(rs.getInt("book_number_of_copies"));
+    				item.setBook_quantity(rs.getInt("book_quantity"));
                     books.add(item);
                 }
 
@@ -304,6 +387,7 @@ public class BookFunctionImpl implements BookFunction<Book> {
                     item.setBook_isbn(rs.getString("book_isbn"));
                     item.setBook_published_year(rs.getInt("book_published_year"));
                     item.setBook_number_of_copies(rs.getInt("book_number_of_copies"));
+    				item.setBook_quantity(rs.getInt("book_quantity"));
                     books.add(item);
                 }
 
@@ -328,24 +412,6 @@ public class BookFunctionImpl implements BookFunction<Book> {
             var2.printStackTrace();
         }
 
-    }
-
-    public static void main(String[] args) {
-        ConnectionPool cp = new ConnectionPoolImpl();
-        BookFunction<Book> f = new BookFunctionImpl(cp);
-//        Book b = new Book("Tiếng Việt", "tieng-viet", 3, 1, 1941, 1);
-//        boolean x = f.deleteT(b);
-//        System.out.println(x);
-//       BookFunctionImpl bf = new BookFunctionImpl(cp);
-//       System.out.println(f.addAuthor("Hành động"));
-//        int author_id = f.addAuthor("Paulo Coelho");
-//        System.out.println(author_id);
-//        int category_id = f.addCategory("Văn học");
-//        System.out.println(category_id);
-//        Book b = new Book("Nhà giả kim", "nha-gia-kim", author_id, 1, 1990, 1);
-        
-//        f.addT(b);
-       
     }
 
     private boolean exe(PreparedStatement pre) {
@@ -376,4 +442,7 @@ public class BookFunctionImpl implements BookFunction<Book> {
             return false;
         }
     }
+
+
+
 }

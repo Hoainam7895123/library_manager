@@ -29,7 +29,7 @@ public class AddBook extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		ConnectionPool cp = new ConnectionPoolImpl();
-        BookFunction<Book> f = new BookFunctionImpl(cp);
+        BookFunction f = new BookFunctionImpl(cp);
         
         String category = req.getParameter("category");
         String title = req.getParameter("title");

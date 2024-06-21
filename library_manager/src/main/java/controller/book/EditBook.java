@@ -23,7 +23,7 @@ public class EditBook extends HttpServlet {
 		String bookId = req.getParameter("bookId");
 		
 		ConnectionPool cp = new ConnectionPoolImpl();
-        BookFunction<Book> f = new BookFunctionImpl(cp);
+        BookFunction f = new BookFunctionImpl(cp);
         
         if (bookId != null) {        	
         	int book_id = Integer.parseInt(bookId);
@@ -37,7 +37,7 @@ public class EditBook extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		ConnectionPool cp = new ConnectionPoolImpl();
-        BookFunction<Book> f = new BookFunctionImpl(cp);
+        BookFunction f = new BookFunctionImpl(cp);
         
         int book_id = Integer.parseInt(req.getParameter("bookId"));
         String category = req.getParameter("category");

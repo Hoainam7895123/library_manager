@@ -1,3 +1,5 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="model.Loan"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.Book"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -9,7 +11,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>Dashboard - NiceAdmin Bootstrap Template</title>
+<title>Quản lý mượn sách</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -34,6 +36,7 @@
 
 <!-- Template Main CSS File -->
 <link href="css/stylex.css" rel="stylesheet">
+<link href="css/custom.css" rel="stylesheet">
 
 <!-- =======================================================
   * Template Name: NiceAdmin
@@ -280,11 +283,11 @@
 			</a>
 				<ul id="components-nav" class="nav-content collapse "
 					data-bs-parent="#sidebar-nav">
-					<li><a href="/library_manager/list-return-book"> <i
-							class="bi bi-circle"></i><span>Quản lý trả sách</span>
+					<li><a href="components-alerts.html" class="active"> <i
+							class="bi bi-circle"></i><span>Alerts</span>
 					</a></li>
-					<li><a href="/library_manager/manage-borrow-book"> <i
-							class="bi bi-circle"></i><span>Quản lý mượn sách</span>
+					<li><a href="components-accordion.html"> <i
+							class="bi bi-circle"></i><span>Accordion</span>
 					</a></li>
 					<li><a href="components-badges.html"> <i
 							class="bi bi-circle"></i><span>Badges</span>
@@ -332,28 +335,23 @@
 			</a>
 				<ul id="forms-nav" class="nav-content collapse show"
 					data-bs-parent="#sidebar-nav">
-					<li><a href="/library_manager/books" class="active"> <i
+					<li><a href="/library_manager/books"> <i
 							class="bi bi-circle"></i><span>Danh sách sách</span>
 					</a></li>
 				</ul></li>
 			<!-- End Forms Nav -->
 
-			<li class="nav-item">
-				<a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-					<i class="bi bi-layout-text-window-reverse"></i>
-					<span>Quản lý thành viên</span>
-					<i class="bi bi-chevron-down ms-auto"></i>
-				</a>
+			<li class="nav-item"><a class="nav-link collapsed"
+				data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+					<i class="bi bi-layout-text-window-reverse"></i> <span>Quản
+						lý thành viên</span> <i class="bi bi-chevron-down ms-auto"></i>
+			</a>
 				<ul id="tables-nav" class="nav-content collapse "
 					data-bs-parent="#sidebar-nav">
-					<li>
-						<a href="/library_manager/members"> 
-							<i class="bi bi-circle"></i>
-							<span>Danh sách thành viên</span>
-						</a>
-					</li>
-				</ul>
-			</li>
+					<li><a href="/library_manager/members"> <i
+							class="bi bi-circle"></i> <span>Danh sách thành viên</span>
+					</a></li>
+				</ul></li>
 			<!-- End Tables Nav -->
 
 			<li class="nav-item"><a class="nav-link collapsed"
@@ -459,98 +457,90 @@
 
 		<section class="section dashboard">
 			<div class="row">
-				<%
-            		String message = request.getParameter("message");
-            		if ("deleteSuccess".equals(message)) {
-        		%>
-				<script type="text/javascript">
-            		alert('Xóa sách thành công!');
-        		</script>
-				<%
-            		}
-        		%>
-				<%
-            		if ("updateSuccess".equals(message)) {
-        		%>
-				<script type="text/javascript">
-            		alert('Sửa sách thành công!');
-        		</script>
-				<%
-            		}
-        		%>
 				<table class="table table-striped">
-					<thead>
-						<tr>
-							<th scope="col">#</th>
-							<th scope="col">Tên sách</th>
-							<th scope="col">ISBN</th>
-							<th scope="col">Năm xuất bản</th>
-							<th scope="col">Số lượng</th>
-							<th scope="col">Tác vụ</th>
-						</tr>
-					</thead>
-					<tbody>
-						<%
-                    		ArrayList<Book> books = (ArrayList<Book>) request.getAttribute("books");
-                    		for (Book book : books) {
-                		%>
-						<tr>
-							<th scope="row"><%= book.getBook_id() %></th>
-							<td><%= book.getBook_title() %></td>
-							<td><%= book.getBook_isbn() %></td>
-							<td><%= book.getBook_published_year() %></td>
-							<td><%= book.getBook_number_of_copies() %></td>
-							<td>
-								<form action="${pageContext.request.contextPath}/update-book"
-									method="get" style="display: inline; margin-right: 10px;">
-									<input type="hidden" name="bookId"
-										value="<%= book.getBook_id() %>">
-									<button type="submit" class="btn btn-primary text-white">
-										<i class="bi bi-pencil-square"></i>
-									</button>
-								</form>
-								<form action="${pageContext.request.contextPath}/delete-book"
-									method="post" style="display: inline;">
-									<input type="hidden" name="bookId"
-										value="<%= book.getBook_id() %>">
-									<button type="submit" class="btn btn-danger text-white">
-										<i class="bi bi-trash3"></i>
-									</button>
-								</form>
-							</td>
-						</tr>
-						<%
-                    }
-                %>
-					</tbody>
-				</table>
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Tên sách</th>
+            <th scope="col">Người mượn</th>
+            <th scope="col">Ngày mượn</th>
+            <th scope="col">Ngày hết hạn</th>
+            <th scope="col">Thời gian trả sách</th>
+            <th scope="col">Trả sách</th>
+        </tr>
+    </thead>
+    <tbody>
+        <%
+        ArrayList<Loan> loans = (ArrayList<Loan>) request.getAttribute("loans");
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+        for (Loan loan : loans) {
+        %>
+        <tr>
+            <th><%=loan.getLoan_id()%></th>
+            <td><%=loan.getBook_title()%></td>
+            <td><%=loan.getMember_name()%></td>
+            <td><%=dateFormat.format(loan.getLoan_date())%></td>
+            <td><%=dateFormat.format(loan.getLoan_due_date())%></td>
+            <td class="text-danger"><%=loan.getLoan_return_date() == null ? "Chưa trả sách" : loan.getLoan_return_date()%></td>
+            <td>
+                <form action="${pageContext.request.contextPath}/returnBook"
+                    method="post" class="return-book-form" id="returnBookForm-<%=loan.getLoan_id()%>"
+                    style="display: inline; margin-right: 10px;">
+                    <input type="hidden" name="loanId" value="<%=loan.getLoan_id()%>">
+                    <button type="button" class="btn btn-outline-primary btn-return-book"
+                        data-bs-toggle="modal" data-bs-target="#confirmReturnModal"
+                        data-loan-id="<%=loan.getLoan_id()%>">
+                        <i class="bi bi-check-square"></i>
+                    </button>
+                </form>
+            </td>
+        </tr>
+        <%
+        }
+        %>
+    </tbody>
+</table>
 			</div>
 		</section>
 
 	</main>
-	<!-- End #main -->
 
-	<!-- ======= Footer ======= -->
 	<footer id="footer" class="footer">
 		<div class="copyright">
 			&copy; Copyright <strong><span>NiceAdmin</span></strong>. All Rights
 			Reserved
 		</div>
 		<div class="credits">
-			<!-- All the links in the footer should remain intact. -->
-			<!-- You can delete the links only if you purchased the pro version. -->
-			<!-- Licensing information: https://bootstrapmade.com/license/ -->
-			<!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
 			Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
 		</div>
 	</footer>
-	<!-- End Footer -->
+
+	<!-- Modal -->
+<div class="modal fade" id="confirmReturnModal" tabindex="-1"
+    aria-labelledby="confirmReturnModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmReturnModalLabel">Xác nhận trả sách</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Bạn có chắc chắn muốn trả sách này không?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-primary" id="confirmReturnButton">Xác nhận</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 	<a href="#"
 		class="back-to-top d-flex align-items-center justify-content-center"><i
 		class="bi bi-arrow-up-short"></i></a>
 
-	<!-- Vendor JS Files -->
 	<script src="${pageContext.request.contextPath}/js/apexcharts.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/js/bootstrap.bundle.min.js"></script>
@@ -559,9 +549,27 @@
 
 	<script src="/js/tinymce.min.js"></script>
 	<script src="/js/validate.js"></script>
-	<!-- Template Main JS File -->
 	<script src="/js/main.js"></script>
 
-</body>
+	<script>
+		document.addEventListener('DOMContentLoaded', function() {
+    		let selectedLoanId;
 
+    		// Lắng nghe sự kiện khi modal được hiển thị
+    		document.querySelectorAll('.btn-return-book').forEach(button => {
+        	button.addEventListener('click', function() {
+            	selectedLoanId = this.getAttribute('data-loan-id');
+        		});	
+    		});
+
+    // Xử lý sự kiện khi click nút xác nhận trong modal
+    document.getElementById('confirmReturnButton').addEventListener('click', function() {
+        if (selectedLoanId) {
+            document.getElementById('returnBookForm-' + selectedLoanId).submit();
+        }
+    });
+});
+</script>
+
+</body>
 </html>

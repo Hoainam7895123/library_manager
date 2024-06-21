@@ -2,27 +2,30 @@ package dao;
 
 import java.util.ArrayList;
 
+import model.Book;
 import util.ConnectionPool;
 
-public interface BookFunction<T> {
+public interface BookFunction {
 	
 	int addAuthor(String name);
 	
 	int addCategory(String name);
 	
-	boolean addT(T var1);
+	boolean addT(Book var1);
 
-	boolean editT(T var1);
+	boolean editT(Book var1);
 
 	boolean deleteT(int id);
 
-	T getTById(int var1);
+	Book getTById(int var1);
 
-	ArrayList<T> getTByTitle(String var1);
+	ArrayList<Book> getTByTitle(String var1);
+	ArrayList<Book> getByAuthor(String var1);
+	ArrayList<Book> getByCategory(String var1);
 
-	ArrayList<T> getListT(T var1, int var2, int var3);
+	ArrayList<Book> getListT(Book var1, int var2, int var3);
 
-	ArrayList<T> getListT();
+	ArrayList<Book> getListT();
 	
 	ConnectionPool getCP();
 

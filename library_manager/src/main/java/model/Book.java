@@ -8,8 +8,11 @@ public class Book {
     private int category_id;
     private int book_published_year;
     private int book_number_of_copies;
+    private int book_quantity;
 
-    public Book() {
+
+
+	public Book() {
     }
 
     public Book(String book_title, String book_isbn, int author_id, int category_id, int book_published_year, int book_number_of_copies) {
@@ -19,6 +22,16 @@ public class Book {
         this.category_id = category_id;
         this.book_published_year = book_published_year;
         this.book_number_of_copies = book_number_of_copies;
+    }
+    
+    public Book(String book_title, String book_isbn, int author_id, int category_id, int book_published_year, int book_number_of_copies, int book_quantity) {
+        this.book_title = book_title;
+        this.book_isbn = book_isbn;
+        this.author_id = author_id;
+        this.category_id = category_id;
+        this.book_published_year = book_published_year;
+        this.book_number_of_copies = book_number_of_copies;
+        this.book_quantity = book_quantity;
     }
     
 
@@ -32,6 +45,14 @@ public class Book {
 		this.category_id = category_id;
 		this.book_published_year = book_published_year;
 		this.book_number_of_copies = book_number_of_copies;
+	}
+    
+    public int getBook_quantity() {
+		return book_quantity;
+	}
+
+	public void setBook_quantity(int book_quantity) {
+		this.book_quantity = book_quantity;
 	}
 
 	public int getBook_id() {

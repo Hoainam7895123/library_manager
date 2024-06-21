@@ -24,7 +24,7 @@ public class BookController extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		ConnectionPool cp = new ConnectionPoolImpl();
-        BookFunction<Book> f = new BookFunctionImpl(cp);
+        BookFunction f = new BookFunctionImpl(cp);
         
         ArrayList<Book> books = f.getListT();
         

@@ -1,4 +1,4 @@
-package controller.book;
+package controller.loan;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,30 +9,25 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.BookFunctionImpl;
-import dao.BookFunction;
-import model.Book;
+import dao.LoanFunction;
+import dao.LoanFuntionImpl;
+import model.Loan;
 import util.ConnectionPool;
 import util.ConnectionPoolImpl;
 
-@WebServlet("/search-book")
-public class SearchBook extends HttpServlet {
-
+@WebServlet("/list-return-book")
+public class ManageReturnBook extends HttpServlet  {
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String title = req.getParameter("searchTitle");
-		
 		ConnectionPool cp = new ConnectionPoolImpl();
-        BookFunction f = new BookFunctionImpl(cp);
-        
-        ArrayList<Book> books = new ArrayList();
-        if (title != null) {
-        	books = f.getTByTitle(title);
-        }
-        
-        req.setAttribute("books", books);
-        
-		req.getRequestDispatcher("searchBook.jsp").forward(req, resp);
+		LoanFunction lf = new LoanFuntionImpl(cp);
+		
+		ArrayList<Loan> loans = lf.getAllLoan();
+		
+		req.setAttribute("loans", loans);
+		req.getRequestDispatcher("manageReturnBook.jsp").forward(req, resp);
 	}
+	
 }

@@ -297,8 +297,13 @@ public class MemberFunctionImpl implements MemberDAOFunction<Member> {
     public static void main(String[] args) {
         ConnectionPool cp = new ConnectionPoolImpl();
         MemberDAOFunction<Member> x = new MemberFunctionImpl(cp);
-		ArrayList<Member> list = x.getMemList();
-		for (Member member : list) {
+        String member_name = "Trần";
+        ArrayList<Member> memberByName = new ArrayList<>();
+        if (member_name != null && !member_name.trim().isEmpty()) {
+            memberByName = x.getMemByName(member_name);
+        }
+//		ArrayList<Member> list = x.getMemByName("Nguyễn");
+		for (Member member : memberByName) {
             System.out.println(member);
         }
 //		x.getMemByName("A");
@@ -364,6 +369,7 @@ public class MemberFunctionImpl implements MemberDAOFunction<Member> {
 
         return members;
     }
+
 
 
 
