@@ -294,22 +294,6 @@ public class MemberFunctionImpl implements MemberDAOFunction<Member> {
         }
 
     }
-    public static void main(String[] args) {
-        ConnectionPool cp = new ConnectionPoolImpl();
-        MemberDAOFunction<Member> x = new MemberFunctionImpl(cp);
-        String member_name = "Trần";
-        ArrayList<Member> memberByName = new ArrayList<>();
-        if (member_name != null && !member_name.trim().isEmpty()) {
-            memberByName = x.getMemByName(member_name);
-        }
-//		ArrayList<Member> list = x.getMemByName("Nguyễn");
-		for (Member member : memberByName) {
-            System.out.println(member);
-        }
-//		x.getMemByName("A");
-//		for (Member member : list) {
-//      System.out.println(member);
-    }
 
 	@Override
 	public Member getMemByID(int var3) {

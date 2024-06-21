@@ -325,10 +325,10 @@
 					<li><a href="/library_manager/list-return-book" > <i
 							class="bi bi-circle"></i><span>Quản lý mượn sách</span>
 					</a></li>
-					<li><a href="/library_manager/manage-borrow-book" class="active" >
+					<li><a href="/library_manager/manage-borrow-book"  >
 							<i class="bi bi-circle"></i><span>Quản lý trả sách</span>
 					</a></li>
-					<li><a href="/library_manager/overdue-book"> <i
+					<li><a href="/library_manager/overdue-book" class="active"> <i
 							class="bi bi-circle"></i><span>Quản lý sách quá hạn</span>
 					</a></li>
 				</ul></li>
@@ -445,293 +445,56 @@
 		<div class="pagetitle">
 			<div class="row">
 				<div class="col-8">
-					<h1>Dashboard</h1>
+					<h1>Trang chủ</h1>
 					<nav>
 						<ol class="breadcrumb">
 							<li class="breadcrumb-item"><a href="books">Home</a></li>
-							<li class="breadcrumb-item active">Dashboard</li>
+							<li class="breadcrumb-item active">Trang chủ</li>
 						</ol>
 					</nav>
-				</div>
-				<div class="col-4 d-flex">
-					<div class="refresh-button me-3">
-						<form
-							action="${pageContext.request.contextPath}/manage-borrow-book"
-							method="post">
-							<input type="hidden" name="action" value="refresh">
-							<button type="submit" class="btn btn-outline-secondary">Làm
-								mới</button>
-						</form>
-					</div>
-					<div class="save-button">
-						<form
-							action="${pageContext.request.contextPath}/manage-borrow-book"
-							method="post">
-							<input type="hidden" name="action" value="confirm">
-							<button type="submit" class="btn btn-outline-secondary">Xác
-								nhận mượn sách</button>
-						</form>
-					</div>
 				</div>
 			</div>
 		</div>
 		<!-- End Page Title -->
 
 		<section class="section dashboard">
-			<div class=row>
-				<div class="col-lg-12">
-					<div class="card">
-						<div class="card-body">
-							<%
-							Member selectedMember = (Member) request.getAttribute("selectedMember");
-							%>
-							<div id="search-form"
-								style="display: <%=(selectedMember == null) ? "block" : "none"%>;">
-								<form
-									action="${pageContext.request.contextPath}/manage-borrow-book"
-									method="get">
-									<h3 class="card-title">Tìm kiếm người dùng</h3>
-									<div class="input-group mb-3">
-										<input type="text" class="form-control"
-											placeholder="Nhập tên người dùng bạn muốn tìm kiếm"
-											name="member_name" aria-label="Recipient's username"
-											aria-describedby="button-addon2">
-										<button class="btn btn-outline-secondary" type="submit"
-											id="button-addon2">Tìm kiếm</button>
-									</div>
-								</form>
-							</div>
-							<div id="search-results">
-								<%
-								ArrayList<Member> memberByName = (ArrayList<Member>) request.getAttribute("memberByName");
-								String member_name = request.getParameter("member_name");
-								if (member_name != null && memberByName != null && !memberByName.isEmpty()) {
-								%>
-								<h6>Kết quả tìm kiếm</h6>
-								<div class="table-responsive">
-									<table class="table table-striped table-bordered">
-										<thead>
-											<tr>
-												<th>Id</th>
-												<th>Tên</th>
-												<th>Số điện thoại</th>
-												<th>Email</th>
-												<th>Địa chỉ</th>
-												<th>Chọn</th>
-											</tr>
-										</thead>
-										<tbody>
-											<%
-											for (Member member : memberByName) {
-											%>
-											<tr>
-												<td><%=member.getMember_id()%></td>
-												<td><%=member.getMember_name()%></td>
-												<td><%=member.getMember_phone()%></td>
-												<td><%=member.getMember_email()%></td>
-												<td><%=member.getMember_address()%></td>
-												<td>
-													<form
-														action="${pageContext.request.contextPath}/manage-borrow-book"
-														method="post">
-														<input type="hidden" name="selectedMemberId"
-															value="<%=member.getMember_id()%>">
-														<button type="submit" class="btn btn-outline-primary">Chọn</button>
-													</form>
-												</td>
-											</tr>
-											<%
-											}
-											%>
-										</tbody>
-									</table>
-								</div>
-								<%
-								} else if (member_name != null) {
-								%>
-								<p>
-									Không tìm thấy người dùng với tên:
-									<%=member_name%></p>
-								<%
-								}
-								%>
-							</div>
-
-							<!-- Hiển thị thông tin thành viên đã chọn -->
-							<div id="selected-member-info">
-								<%
-								if (selectedMember != null) {
-								%>
-								<h6 class="card-title">Thông tin thành viên đã chọn</h6>
-								<div>
-									<p>
-										<strong>Tên:</strong>
-										<%=selectedMember.getMember_name()%></p>
-									<p>
-										<strong>Số điện thoại:</strong>
-										<%=selectedMember.getMember_phone()%></p>
-									<p>
-										<strong>Email:</strong>
-										<%=selectedMember.getMember_email()%></p>
-									<p>
-										<strong>Địa chỉ:</strong>
-										<%=selectedMember.getMember_address()%></p>
-									<form
-										action="${pageContext.request.contextPath}/manage-borrow-book"
-										method="post">
-										<input type="hidden" name="removeSelectedMember" value="true">
-										<button type="submit" class="btn btn-outline-danger">Thay
-											đổi</button>
-									</form>
-								</div>
-								<%
-								}
-								%>
-							</div>
-
-						</div>
-					</div>
-				</div>
-			</div>
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="card">
-
 						<div class="card-body">
-							<h3 class="card-title">Tìm kiếm sách</h3>
-							<div class="search-book">
-								<div class="row">
-									<div class="col-lg-8">
-										<div class="input-book">
-											<form
-												action="${pageContext.request.contextPath}/manage-borrow-book"
-												method="get">
-												<div class="input-group mb-3">
-													<input type="text" class="form-control" name="keyword"
-														placeholder="Nhập từ khóa tìm kiếm"
-														aria-label="Search keyword"
-														aria-describedby="button-addon2">
-													<button class="btn btn-outline-secondary" type="submit"
-														id="button-addon2">Tìm kiếm</button>
-												</div>
-										</div>
-									</div>
-									<div class="col-lg-4">
-										<div class="input-book">
-											<select class="form-select" name="searchType"
-												aria-label="Default select example">
-												<option selected value="title">Tìm kiếm theo tên
-													sách</option>
-												<option value="category">Tìm kiếm theo thể loại</option>
-												<option value="author">Tìm kiếm theo tác giả</option>
-											</select>
-											</form>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<!-- Ô sách được chọn -->
-							<div class="selected-books">
-								<h5 class="card-title">Sách được chọn</h5>
-								<div class="table-responsive"
-									style="padding-top: 10px; border-top: 1px solid black">
-									<table class="table table-striped">
-										<thead>
-											<tr>
-												<th scope="col">Tên sách</th>
-												<th scope="col">Thông tin chi tiết</th>
-												<th scope="col">Hành động</th>
-											</tr>
-										</thead>
-										<tbody id="selected-book-table-body">
-											<%
-											ArrayList<Book> selectedBooks = (ArrayList<Book>) request.getAttribute("selectedBooks");
-											if (selectedBooks != null && !selectedBooks.isEmpty()) {
-												for (Book book : selectedBooks) {
-											%>
-											<tr>
-												<td><%=book.getBook_title()%></td>
-												<td>ISBN: <%=book.getBook_isbn()%>, Năm xuất bản: <%=book.getBook_published_year()%>,
-													Số lượng: <%=book.getBook_number_of_copies()%></td>
-												<td>
-													<form
-														action="${pageContext.request.contextPath}/manage-borrow-book"
-														method="post">
-														<input type="hidden" name="action" value="remove">
-														<input type="hidden" name="bookIdToRemove"
-															value="<%=book.getBook_id()%>">
-														<button type="submit" class="btn btn-outline-danger">Xoá</button>
-													</form>
-												</td>
-											</tr>
-											<%
-											}
-											} else {
-											%>
-											<tr>
-												<td colspan="3">Chưa có sách nào được chọn</td>
-											</tr>
-											<%
-											}
-											%>
-										</tbody>
-									</table>
-								</div>
-							</div>
-
-							<div class="list-book table-responsive mt-3"
-								style="padding-top: 10px; border-top: 1px solid black">
-								<div class="card-title">Kết quả tìm kiếm</div>
+							<div class="card-title">Những cuốn sách quá hạn trả</div>
+							<div class="table-responsive">
 								<table class="table table-striped">
 									<thead>
 										<tr>
 											<th scope="col">#</th>
 											<th scope="col">Tên sách</th>
-											<th scope="col">ISBN</th>
-											<th scope="col">Năm xuất bản</th>
-											<th scope="col">Số lượng</th>
-											<th scope="col">Chọn</th>
+											<th scope="col">Người mượn</th>
+											<th scope="col">Ngày mượn</th>
+											<th scope="col">Ngày hết hạn</th>
 										</tr>
 									</thead>
 									<tbody>
 										<%
-										ArrayList<Book> books = (ArrayList<Book>) request.getAttribute("books");
-										if (books != null) {
-											for (Book book : books) {
+										ArrayList<Loan> loans = (ArrayList<Loan>) request.getAttribute("overdueBooks");
+										if (loans != null) {
+											for (Loan loan : loans) {
 										%>
 										<tr>
-											<th scope="row"><%=book.getBook_id()%></th>
-											<td><%=book.getBook_title()%></td>
-											<td><%=book.getBook_isbn()%></td>
-											<td><%=book.getBook_published_year()%></td>
-											<td><%=book.getBook_number_of_copies()%></td>
-											<td>
-												<form
-													action="${pageContext.request.contextPath}/manage-borrow-book"
-													method="post">
-													<input type="hidden" name="action" value="add"> <input
-														type="hidden" name="bookIdToAdd"
-														value="<%=book.getBook_id()%>">
-													<button type="submit" class="btn btn-outline-primary">Chọn</button>
-												</form>
-											</td>
+											<th scope="row"><%=loan.getLoan_id()%></th>
+											<td><a class="text-black" href="bookInfo?bookId=<%=loan.getBook_id()%>"><%=loan.getBook_title()%></a></td>
+											<td><a class="text-black" href="memberInfo?memberId=<%=loan.getMember_id()%>"><%=loan.getMember_name()%></a></td>
+											<td><%=loan.getLoan_date()%></td>
+											<td><%=loan.getLoan_due_date()%></td>
 										</tr>
 										<%
 										}
-										} else {
-										%>
-										<tr>
-											<td colspan="6">Không tìm thấy sách nào</td>
-										</tr>
-										<%
 										}
 										%>
 									</tbody>
 								</table>
 							</div>
 						</div>
-
 					</div>
 				</div>
 			</div>
@@ -762,15 +525,6 @@
 	<script src="/js/tinymce.min.js"></script>
 	<script src="/js/validate.js"></script>
 	<script src="/js/main.js"></script>
-	<script>
-    // JavaScript code to display messages from the server-side
-    <% String message = (String) request.getAttribute("message"); %>
-    <% if (message != null && !message.isEmpty()) { %>
-        alert("<%= message %>");
-        <% request.removeAttribute("message"); // Đảm bảo thông báo chỉ hiển thị một lần %>
-    <% } %>
-</script>
-
 
 </body>
 </html>

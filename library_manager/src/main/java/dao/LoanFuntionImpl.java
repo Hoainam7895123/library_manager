@@ -86,12 +86,7 @@ public class LoanFuntionImpl implements LoanFunction {
 		return loans;
 	}
 	
-	public static void main(String[] args) {
-		ConnectionPool cp = new ConnectionPoolImpl();
-		LoanFunction lf = new LoanFuntionImpl(cp);
-		
-		System.out.println(lf.checkTheNumberOfUnpaidBooks(2));
-	}
+	
 
 	@Override
 	public ArrayList<Loan> getAllByMemberId() {
@@ -241,50 +236,89 @@ public class LoanFuntionImpl implements LoanFunction {
 			return false;
 		}
 	}
+	
+
 
 	// liệt kê các cuốn sách quá hạn
 	@Override
 	public ArrayList<Loan> overdueBooks() {
-		// TODO Auto-generated method stub
-		ArrayList<Loan> overdueLoans = new ArrayList<Loan>();
-		String sql ="SELECT "
-				+ 	"		*"
-				+ 	"FROM "
-				+ 	"		Loans"
-				+ 	"WHERE "
-				+ 	"		loan_due_date < CURDATE() "
-				+ 	"AND "
-				+ 	"		loan_return_date IS NULL;";
-		
-		try {
-            PreparedStatement pre = con.prepareStatement(sql);
-            ResultSet rs = pre.executeQuery();
+	    ArrayList<Loan> overdueLoans = new ArrayList<>();
+	    String sql = "SELECT l.loan_id, l.book_id, l.member_id, l.loan_date, l.loan_due_date, l.loan_return_date, " +
+	                 "b.book_title, m.member_name " +
+	                 "FROM Loans l " +
+	                 "JOIN Books b ON l.book_id = b.book_id " +
+	                 "JOIN Members m ON l.member_id = m.member_id " +
+	                 "WHERE l.loan_due_date < CURDATE() AND l.loan_return_date IS NULL";
+	    
+	    try {
+	        PreparedStatement pre = con.prepareStatement(sql);
+	        ResultSet rs = pre.executeQuery();
 
-            while (rs.next()) {
-                Loan loan = new Loan();
-                loan.setLoan_id(rs.getInt("loan_id"));
-                loan.setBook_id(rs.getInt("book_id"));
-                loan.setMember_id(rs.getInt("member_id"));
-                loan.setLoan_date(rs.getDate("loan_date"));
-                loan.setLoan_due_date(rs.getDate("loan_due_date"));
-                loan.setLoan_return_date(rs.getDate("loan_return_date"));
+	        while (rs.next()) {
+	            Loan loan = new Loan();
+	            loan.setLoan_id(rs.getInt("loan_id"));
+	            loan.setBook_id(rs.getInt("book_id"));
+	            loan.setMember_id(rs.getInt("member_id"));
+	            loan.setLoan_date(rs.getDate("loan_date"));
+	            loan.setLoan_due_date(rs.getDate("loan_due_date"));
+	            loan.setLoan_return_date(rs.getDate("loan_return_date"));
+	            loan.setBook_title(rs.getString("book_title"));
+	            loan.setMember_name(rs.getString("member_name"));
 
-                overdueLoans.add(loan);
-            }
+	            overdueLoans.add(loan);
+	        }
 
-            rs.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+	        rs.close();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
 
-        return overdueLoans;
+	    return overdueLoans;
 	}
+
+
 
 	// xem lịch sử mượn sách của người dùng
 	@Override
 	public ArrayList<Loan> seeBookBorrowingHistory(int member_id) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Loan> loans = new ArrayList<Loan>();
+		String sql = 
+			    "SELECT " +
+			    "    l.loan_id, l.book_id, l.member_id, l.loan_date, l.loan_due_date, l.loan_return_date, " +
+			    "    b.book_title, m.member_name " +
+			    "FROM " +
+			    "    Loans l " +
+			    "JOIN " +
+			    "    Books b ON l.book_id = b.book_id " +
+			    "JOIN " +
+			    "    Members m ON l.member_id = m.member_id " +
+			    "WHERE " +
+			    "    l.member_id = ?";
+		try {
+	        PreparedStatement pre = con.prepareStatement(sql);
+	        pre.setInt(1, member_id);
+	        ResultSet rs = pre.executeQuery();
+
+	        while (rs.next()) {
+	            Loan loan = new Loan();
+	            loan.setLoan_id(rs.getInt("loan_id"));
+	            loan.setBook_id(rs.getInt("book_id"));
+	            loan.setMember_id(rs.getInt("member_id"));
+	            loan.setLoan_date(rs.getDate("loan_date"));
+	            loan.setLoan_due_date(rs.getDate("loan_due_date"));
+	            loan.setLoan_return_date(rs.getDate("loan_return_date"));
+	            loan.setBook_title(rs.getString("book_title"));
+	            loan.setMember_name(rs.getString("member_name"));
+
+	            loans.add(loan);
+	        }
+
+	        rs.close();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+		
+		return loans;
 	}
 
 	// tính tổng số cuốn sách mà người dùng đang mượn
@@ -308,6 +342,61 @@ public class LoanFuntionImpl implements LoanFunction {
 	    }
 	    
 	    return totalUnreturnedLoans;
+	}
+
+
+	public static void main(String[] args) {
+		ConnectionPool cp = new ConnectionPoolImpl();
+		LoanFunction lf = new LoanFuntionImpl(cp);
+		
+		ArrayList<Loan> over = lf.findPeopleToBorrowBooks(1);
+		for(Loan loan:over) {
+			System.out.println(loan.getBook_title() + " " + loan.getMember_name());
+		}
+	}
+	
+	public ArrayList<Loan> findPeopleToBorrowBooks(int book_id) {
+		// TODO Auto-generated method stub
+		ArrayList<Loan> loans = new ArrayList<Loan>();
+		String sql = 
+			    "SELECT " +
+			    "    l.loan_id, l.book_id, l.member_id, l.loan_date, l.loan_due_date, l.loan_return_date, " +
+			    "    b.book_title, m.member_name " +
+			    "FROM " +
+			    "    Loans l " +
+			    "JOIN " +
+			    "    Books b ON l.book_id = b.book_id " +
+			    "JOIN " +
+			    "    Members m ON l.member_id = m.member_id " +
+			    "WHERE " +
+			    "    l.book_id = ? " + 
+			    "AND " +
+			    "l.loan_return_date IS NULL";
+		try {
+	        PreparedStatement pre = con.prepareStatement(sql);
+	        pre.setInt(1, book_id);
+	        ResultSet rs = pre.executeQuery();
+
+	        while (rs.next()) {
+	            Loan loan = new Loan();
+	            loan.setLoan_id(rs.getInt("loan_id"));
+	            loan.setBook_id(rs.getInt("book_id"));
+	            loan.setMember_id(rs.getInt("member_id"));
+	            loan.setLoan_date(rs.getDate("loan_date"));
+	            loan.setLoan_due_date(rs.getDate("loan_due_date"));
+	            loan.setLoan_return_date(rs.getDate("loan_return_date"));
+	            loan.setBook_title(rs.getString("book_title"));
+	            loan.setMember_name(rs.getString("member_name"));
+
+	            loans.add(loan);
+	        }
+
+	        rs.close();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+		
+		return loans;
 	}
 
 }

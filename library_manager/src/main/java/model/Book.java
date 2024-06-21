@@ -9,6 +9,7 @@ public class Book {
     private int book_published_year;
     private int book_number_of_copies;
     private int book_quantity;
+    private String author_name;
 
 
 
@@ -34,8 +35,26 @@ public class Book {
         this.book_quantity = book_quantity;
     }
     
+    public Book(String book_title, String book_isbn, int author_id, int category_id, int book_published_year, int book_number_of_copies, int book_quantity, String author_name) {
+        this.book_title = book_title;
+        this.book_isbn = book_isbn;
+        this.author_id = author_id;
+        this.category_id = category_id;
+        this.book_published_year = book_published_year;
+        this.book_number_of_copies = book_number_of_copies;
+        this.author_name = author_name;
+        this.book_quantity = book_quantity;
+    }
+    
+    public String getAuthor_name() {
+		return author_name;
+	}
 
-    public Book(int book_id, String book_title, String book_isbn, int author_id, int category_id,
+	public void setAuthor_name(String author_name) {
+		this.author_name = author_name;
+	}
+
+	public Book(int book_id, String book_title, String book_isbn, int author_id, int category_id,
 			int book_published_year, int book_number_of_copies) {
 		super();
 		this.book_id = book_id;

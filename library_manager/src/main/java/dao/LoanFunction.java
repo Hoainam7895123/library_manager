@@ -15,6 +15,7 @@ public interface LoanFunction {
 	ArrayList<Loan> overdueBooks();
 	
 	ArrayList<Loan> seeBookBorrowingHistory(int member_id);
+	ArrayList<Loan> findPeopleToBorrowBooks(int book_id);
 	
 	boolean addLoan(Loan loan);
 	
