@@ -269,9 +269,9 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="books">
+        <a class="nav-link collapsed" href="/library_manager/dashboard">
           <i class="bi bi-grid"></i>
-          <span>Dashboard</span>
+          <span>Trang chủ</span>
         </a>
       </li><!-- End Dashboard Nav -->
 

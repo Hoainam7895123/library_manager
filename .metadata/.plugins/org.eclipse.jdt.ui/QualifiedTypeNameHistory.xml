@@ -21,17 +21,17 @@
     <fullyQualifiedTypeName name="java.sql.Array"/>
     <fullyQualifiedTypeName name="util.ConnectionPool"/>
     <fullyQualifiedTypeName name="util.ConnectionPoolImpl"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="model.Book"/>
+    <fullyQualifiedTypeName name="dao.BookFunction"/>
+    <fullyQualifiedTypeName name="dao.BookFunctionImpl"/>
+    <fullyQualifiedTypeName name="javax.servlet.http.HttpServlet"/>
+    <fullyQualifiedTypeName name="javax.servlet.annotation.WebServlet"/>
+    <fullyQualifiedTypeName name="model.Loan"/>
     <fullyQualifiedTypeName name="dao.LoanFunction"/>
     <fullyQualifiedTypeName name="dao.LoanFuntionImpl"/>
     <fullyQualifiedTypeName name="dao.MemberDAOFunction"/>
     <fullyQualifiedTypeName name="model.Member"/>
     <fullyQualifiedTypeName name="dao.MemberFunctionImpl"/>
     <fullyQualifiedTypeName name="java.lang.Integer"/>
-    <fullyQualifiedTypeName name="model.Loan"/>
-    <fullyQualifiedTypeName name="java.util.ArrayList"/>
-    <fullyQualifiedTypeName name="javax.servlet.http.HttpServlet"/>
-    <fullyQualifiedTypeName name="javax.servlet.annotation.WebServlet"/>
-    <fullyQualifiedTypeName name="model.Book"/>
-    <fullyQualifiedTypeName name="dao.BookFunction"/>
-    <fullyQualifiedTypeName name="dao.BookFunctionImpl"/>
 </qualifiedTypeNameHistroy>

@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import model.Book;
+import model.Member;
 import util.ConnectionPool;
 import util.ConnectionPoolImpl;
 
@@ -238,16 +239,7 @@ public class BookFunctionImpl implements BookFunction {
 		return item;
 	}
 
-	public static void main(String[] args) {
-		ConnectionPool cp = new ConnectionPoolImpl();
-		BookFunction bf = new BookFunctionImpl(cp);
 
-//		ArrayList<Book> books = bf.getByCategory("Văn Học");
-//		for (Book book : books) {
-//			System.out.println(book.getBook_title() + " " + book.getBook_isbn());
-//		}
-//		bf.getTById(1);
-	}
 
 	public ArrayList<Book> getTByTitle(String title) {
 		String sql = "SELECT * FROM Books WHERE book_title LIKE ?";
@@ -452,5 +444,104 @@ public class BookFunctionImpl implements BookFunction {
 			return false;
 		}
 	}
+
+	@Override
+	public Integer getTheNumberOfMembers() {
+		String sql = "SELECT COUNT(*) AS total_members FROM Members";
+		
+        Integer totalMembers = null;
+        	
+        try {
+			PreparedStatement stmt = this.con.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            
+            if (rs.next()) {
+                totalMembers = rs.getInt("total_members");
+            }
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return totalMembers;
+	}
+	
+	public static void main(String[] args) {
+		ConnectionPool cp = new ConnectionPoolImpl();
+		BookFunction bf = new BookFunctionImpl(cp);
+
+		ArrayList<Member> members = bf.memberVIP();
+		members.forEach(m -> System.out.println(m.getMember_id() + " " + m.getTotal_loans()));
+		
+//		System.out.println(x + " " + y);
+
+	}
+	
+
+	@Override
+	public Integer getTheNumberOfBooks() {
+		String sql = "SELECT COUNT(*) AS total_books FROM Books";
+		
+        Integer totalBooks = null;
+        	
+        try {
+			PreparedStatement stmt = this.con.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            
+            if (rs.next()) {
+            	totalBooks = rs.getInt("total_books");
+            }
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return totalBooks;
+	}
+
+	@Override
+	public ArrayList<Member> memberVIP() {
+		ArrayList<Member> members = new ArrayList<Member>();
+		Member item;
+		String sql = 
+                "SELECT "
+              + "    m.member_id, "
+              + "    m.member_name, "
+              + "    m.member_phone, "
+              + "    COUNT(l.loan_id) AS total_loans "
+              + "FROM "
+              + "    Loans l "
+              + "JOIN "
+              + "    Members m ON l.member_id = m.member_id "
+              + "WHERE "
+              + "    MONTH(l.loan_date) = MONTH(CURRENT_DATE()) "
+              + "    AND YEAR(l.loan_date) = YEAR(CURRENT_DATE()) "
+              + "GROUP BY "
+              + "    m.member_id, m.member_name, m.member_phone "
+              + "ORDER BY "
+              + "    total_loans DESC "
+              + "LIMIT 5;";
+		
+		try {
+			PreparedStatement pre = this.con.prepareStatement(sql);
+			ResultSet rs = pre.executeQuery();
+			if (rs != null) {
+				while (rs.next()) {
+					item = new Member();
+					item.setMember_id(rs.getInt("member_id"));
+					item.setMember_name(rs.getString("member_name"));
+					item.setMember_phone(rs.getString("member_phone"));
+					item.setTotal_loans(rs.getInt("total_loans"));
+					members.add(item);
+				}
+
+				rs.close();
+			}
+		} catch (SQLException var6) {
+			var6.printStackTrace();
+		}
+		return members;
+	}
+
 
 }

@@ -3,6 +3,7 @@ package dao;
 import java.util.ArrayList;
 
 import model.Book;
+import model.Member;
 import util.ConnectionPool;
 
 public interface BookFunction {
@@ -30,5 +31,9 @@ public interface BookFunction {
 	ConnectionPool getCP();
 
 	void releaseConnection();
-	 
+	
+	Integer getTheNumberOfMembers();
+	Integer getTheNumberOfBooks();
+	ArrayList<Member> memberVIP();
+	
 }

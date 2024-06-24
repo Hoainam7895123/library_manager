@@ -6,6 +6,7 @@ public class Member {
 	private String member_address;
 	private String member_phone;
 	private String member_email;
+	private int total_loans;
 	
 	public Member(int member_id, String member_name, String member_address, String member_phone,
 			String member_email) {
@@ -15,6 +16,17 @@ public class Member {
 		this.member_address = member_address;
 		this.member_phone = member_phone;
 		this.member_email = member_email;
+	}
+	
+	public Member(int member_id, String member_name, String member_address, String member_phone,
+			String member_email, int total_loans) {
+		super();
+		this.member_id = member_id;
+		this.member_name = member_name;
+		this.member_address = member_address;
+		this.member_phone = member_phone;
+		this.member_email = member_email;
+		this.total_loans = total_loans;
 	}
 
 	public Member() {
@@ -61,11 +73,20 @@ public class Member {
 		this.member_email = member_email;
 	}
 
+	public int getTotal_loans() {
+		return total_loans;
+	}
+
+	public void setTotal_loans(int total_loans) {
+		this.total_loans = total_loans;
+	}
+
 	@Override
 	public String toString() {
 		return "MemberObject [member_id=" + member_id + ", member_name=" + member_name + ", member_address="
 				+ member_address + ", member_phone=" + member_phone + ", member_email=" + member_email + "]";
 	}
+
 	
 	
 }

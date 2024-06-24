@@ -2,6 +2,7 @@ package dao;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 
 import model.Loan;
 import util.ConnectionPool;
@@ -26,4 +27,11 @@ public interface LoanFunction {
 	ConnectionPool getCP();
 
 	void releaseConnection();
+	
+	Integer numberOfBookBorrowingsThisMonth();
+	
+	Integer numberOfBookBorrowingsPreviousMonth();
+	
+	List<Integer> takeTheBorrowedTurnOfTheMonths();
+
 }

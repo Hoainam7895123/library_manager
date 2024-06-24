@@ -5,8 +5,10 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import model.Book;
 import model.Loan;
@@ -345,15 +347,7 @@ public class LoanFuntionImpl implements LoanFunction {
 	}
 
 
-	public static void main(String[] args) {
-		ConnectionPool cp = new ConnectionPoolImpl();
-		LoanFunction lf = new LoanFuntionImpl(cp);
-		
-		ArrayList<Loan> over = lf.findPeopleToBorrowBooks(1);
-		for(Loan loan:over) {
-			System.out.println(loan.getBook_title() + " " + loan.getMember_name());
-		}
-	}
+	
 	
 	public ArrayList<Loan> findPeopleToBorrowBooks(int book_id) {
 		// TODO Auto-generated method stub
@@ -398,5 +392,99 @@ public class LoanFuntionImpl implements LoanFunction {
 		
 		return loans;
 	}
+	
+	public Integer numberOfBookBorrowingsThisMonth() {
+		String sql = 
+					"SELECT "
+				+ 	"		COUNT(*) AS total_loans "
+				+ 	"FROM "
+				+ 	"		Loans "
+				+ 	"WHERE "
+				+ 	"		MONTH(loan_date) = MONTH(CURRENT_DATE())"
+				+ 	"AND "
+				+ 	"		YEAR(loan_date) = YEAR(CURRENT_DATE())";
+		
+        Integer totalLoans = null;
+        	
+        try {
+			PreparedStatement stmt = this.con.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            
+            if (rs.next()) {
+            	totalLoans = rs.getInt("total_loans");
+            }
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return totalLoans;
+	}
+	
+public static void main(String[] args) {
+	ConnectionPool cp = new ConnectionPoolImpl();
+	LoanFunction lf = new LoanFuntionImpl(cp);
+	
+	System.out.println(lf.numberOfBookBorrowingsPreviousMonth());
+}
+	public Integer numberOfBookBorrowingsPreviousMonth() {
+		String sql = "SELECT " + "		COUNT(*) AS total_loans " + "FROM " + "		Loans " + "WHERE "
+				+ "		MONTH(loan_date) = MONTH(CURRENT_DATE()) - 1 " + "AND "
+				+ "		YEAR(loan_date) = YEAR(CURRENT_DATE())";
+
+		Integer totalLoans = null;
+
+		try {
+			PreparedStatement stmt = this.con.prepareStatement(sql);
+			ResultSet rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				totalLoans = rs.getInt("total_loans");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return totalLoans;
+	}
+	
+
+	@Override
+	public List<Integer> takeTheBorrowedTurnOfTheMonths() {
+		List<Integer> data = new ArrayList<Integer>();
+		
+        LocalDate currentDate = LocalDate.now();
+        int curcurrentMonth = currentDate.getMonthValue();
+        for (int i = 1; i <= curcurrentMonth; i++) {
+        	String sql = 
+        				"SELECT "
+    				+ 	"		count(*) AS total_loans_of_month "
+        			+ 	"FROM "
+        			+ 	"		Loans "
+        			+ 	"WHERE "
+        			+ 	"		MONTH(loan_date) = " + i
+        			+ 	" AND "
+        			+ 	"		YEAR(loan_date) = YEAR(CURRENT_DATE())";
+        	Integer totalLoans = null;
+        	
+            try {
+    			PreparedStatement stmt = this.con.prepareStatement(sql);
+                ResultSet rs = stmt.executeQuery();
+                
+                if (rs.next()) {
+                	totalLoans = rs.getInt("total_loans_of_month");
+                	data.add(totalLoans);
+                }
+    		} catch (SQLException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+        }
+		// TODO Auto-generated method stub
+		return data;
+	}
+
+
 
 }
