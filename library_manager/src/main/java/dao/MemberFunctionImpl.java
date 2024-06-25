@@ -72,17 +72,16 @@ public class MemberFunctionImpl implements MemberDAOFunction<Member> {
 		
 		StringBuilder sql = new StringBuilder();
 		sql.append("INSERT INTO members (");
-		sql.append("member_id, member_name, member_address, member_phone,  member_email) ");
-		sql.append("VALUES (?, ?, ?, ?, ?);");
+		sql.append(" member_name, member_address, member_phone,  member_email) ");
+		sql.append("VALUES ( ?, ?, ?, ?);");
 
 
 		try {
 			PreparedStatement pre = this.con.prepareStatement(sql.toString());
-			pre.setInt(1,item.getMember_id());
-			pre.setString(2,item.getMember_name());
-			pre.setString(3,item.getMember_address());
-			pre.setString(4,item.getMember_phone());
-			pre.setString(5,item.getMember_email());
+			pre.setString(1,item.getMember_name());
+			pre.setString(2,item.getMember_address());
+			pre.setString(3,item.getMember_phone());
+			pre.setString(4,item.getMember_email());
 
 			
 			return this.exe(pre);

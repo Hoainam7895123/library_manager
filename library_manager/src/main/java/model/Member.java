@@ -18,15 +18,13 @@ public class Member {
 		this.member_email = member_email;
 	}
 	
-	public Member(int member_id, String member_name, String member_address, String member_phone,
-			String member_email, int total_loans) {
+	public Member(String member_name, String member_address, String member_phone,
+			String member_email) {
 		super();
-		this.member_id = member_id;
 		this.member_name = member_name;
 		this.member_address = member_address;
 		this.member_phone = member_phone;
 		this.member_email = member_email;
-		this.total_loans = total_loans;
 	}
 
 	public Member() {
