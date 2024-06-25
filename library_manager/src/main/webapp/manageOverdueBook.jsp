@@ -92,8 +92,8 @@
 
 		<div class="d-flex align-items-center justify-content-between">
 			<a href="books" class="logo d-flex align-items-center"> <img
-				src="assets/img/logo.png" alt=""> <span
-				class="d-none d-lg-block">NiceAdmin</span>
+				src="img/logox.png" alt=""> <span
+				class="d-none d-lg-block">Manage Library</span>
 			</a> <i class="bi bi-list toggle-sidebar-btn"></i>
 		</div>
 		<!-- End Logo -->
@@ -251,9 +251,9 @@
 				<li class="nav-item dropdown pe-3"><a
 					class="nav-link nav-profile d-flex align-items-center pe-0"
 					href="#" data-bs-toggle="dropdown"> <img
-						src="assets/img/profile-img.jpg" alt="Profile"
+						src="img/profile-img.jpg" alt="Profile"
 						class="rounded-circle"> <span
-						class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
+						class="d-none d-md-block dropdown-toggle ps-2">Admin</span>
 				</a> <!-- End Profile Iamge Icon -->
 
 					<ul
@@ -290,8 +290,7 @@
 						</li>
 
 						<li><a class="dropdown-item d-flex align-items-center"
-							href="#"> <i class="bi bi-box-arrow-right"></i> <span>Sign
-									Out</span>
+							href="/library_manager/login"> <i class="bi bi-box-arrow-right"></i> <span>Đăng xuất</span>
 						</a></li>
 
 					</ul> <!-- End Profile Dropdown Items --></li>
@@ -317,16 +316,16 @@
 
 			<li class="nav-item"><a class="nav-link "
 				data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-					<i class="bi bi-menu-button-wide"></i><span>Components</span><i
+					<i class="bi bi-menu-button-wide"></i><span>Quản lý mượn - trả sách</span><i
 					class="bi bi-chevron-down ms-auto"></i>
 			</a>
 				<ul id="components-nav" class="nav-content collapse show"
 					data-bs-parent="#sidebar-nav">
 					<li><a href="/library_manager/list-return-book" > <i
-							class="bi bi-circle"></i><span>Quản lý mượn sách</span>
+							class="bi bi-circle"></i><span>Quản lý trả sách</span>
 					</a></li>
 					<li><a href="/library_manager/manage-borrow-book"  >
-							<i class="bi bi-circle"></i><span>Quản lý trả sách</span>
+							<i class="bi bi-circle"></i><span>Quản lý mượn sách</span>
 					</a></li>
 					<li><a href="/library_manager/overdue-book" class="active"> <i
 							class="bi bi-circle"></i><span>Quản lý sách quá hạn</span>
@@ -445,11 +444,12 @@
 		<div class="pagetitle">
 			<div class="row">
 				<div class="col-8">
-					<h1>Trang chủ</h1>
+					<h1>Quản lý sách quá hạn</h1>
 					<nav>
 						<ol class="breadcrumb">
 							<li class="breadcrumb-item"><a href="books">Home</a></li>
-							<li class="breadcrumb-item active">Trang chủ</li>
+							<li class="breadcrumb-item"><a href="books">Quản lý mượn - trả sách</a></li>
+							<li class="breadcrumb-item active">Quản lý sách quá hạn</li>
 						</ol>
 					</nav>
 				</div>

@@ -16,8 +16,8 @@
 <meta content="" name="keywords">
 
 <!-- Favicons -->
-<link href="/img/favicon.png" rel="icon">
-<link href="/img/apple-touch-icon.png" rel="apple-touch-icon">
+<link href="img/favicon.png" rel="icon">
+<link href="img/apple-touch-icon.png" rel="apple-touch-icon">
 
 <!-- Google Fonts -->
 <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -53,8 +53,8 @@
 
 		<div class="d-flex align-items-center justify-content-between">
 			<a href="books" class="logo d-flex align-items-center"> <img
-				src="assets/img/logo.png" alt=""> <span
-				class="d-none d-lg-block">NiceAdmin</span>
+				src="img/logox.png" alt=""> <span
+				class="d-none d-lg-block">Manage Library</span>
 			</a> <i class="bi bi-list toggle-sidebar-btn"></i>
 		</div>
 		<!-- End Logo -->
@@ -214,7 +214,7 @@
 					href="#" data-bs-toggle="dropdown"> <img
 						src="img/profile-img.jpg" alt="Profile"
 						class="rounded-circle"> <span
-						class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
+						class="d-none d-md-block dropdown-toggle ps-2">Admin</span>
 				</a> <!-- End Profile Iamge Icon -->
 
 					<ul
@@ -251,8 +251,7 @@
 						</li>
 
 						<li><a class="dropdown-item d-flex align-items-center"
-							href="#"> <i class="bi bi-box-arrow-right"></i> <span>Sign
-									Out</span>
+							href="/library_manager/login"> <i class="bi bi-box-arrow-right"></i> <span>Đăng xuất</span>
 						</a></li>
 
 					</ul> <!-- End Profile Dropdown Items --></li>
@@ -280,17 +279,17 @@
 
 			<li class="nav-item"><a class="nav-link collapsed"
 				data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-					<i class="bi bi-menu-button-wide"></i><span>Components</span><i
+					<i class="bi bi-menu-button-wide"></i><span>Quản lý mượn - trả sách</span><i
 					class="bi bi-chevron-down ms-auto"></i>
 			</a>
 				<ul id="components-nav" class="nav-content collapse "
 					data-bs-parent="#sidebar-nav">
 					<li><a href="/library_manager/list-return-book"> <i
-							class="bi bi-circle"></i><span>Quản lý mượn sách</span>
+							class="bi bi-circle"></i><span>Quản lý trả sách</span>
 					</a></li>
 					<li><a href="/library_manager/manage-borrow-book"
 						> <i class="bi bi-circle"></i><span>Quản
-								lý trả sách</span>
+								lý mượn sách</span>
 					</a></li>
 					<li><a href="/library_manager/overdue-book"> <i
 							class="bi bi-circle"></i><span>Quản lý sách quá hạn</span>
@@ -406,11 +405,11 @@
 	<main id="main" class="main">
 
 		<div class="pagetitle">
-			<h1>Dashboard</h1>
+			<h1>Trang chủ</h1>
 			<nav>
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item"><a href="index.html">Home</a></li>
-					<li class="breadcrumb-item active">Dashboard</li>
+					<li class="breadcrumb-item active">Trang chủ</li>
 				</ol>
 			</nav>
 		</div>
@@ -451,7 +450,7 @@
 									</ul>
 								</div>
 
-								<div class="card-body">
+								<div style="max-height: 148.59px" class="card-body">
 									<h5 class="card-title">
 										Sách <span>| Số lượng</span>
 									</h5>
@@ -535,7 +534,7 @@
 									</ul>
 								</div>
 
-								<div class="card-body">
+								<div style="max-height: 148.59px" class="card-body">
 									<h5 class="card-title">
 										Thành viên <span>| This Year</span>
 									</h5>
@@ -705,29 +704,26 @@
 				<div class="col-lg-4">
 
 					<!-- Budget Report -->
-					<div class="card">
-						<div class="filter">
-							<a class="icon" href="#" data-bs-toggle="dropdown"><i
-								class="bi bi-three-dots"></i></a>
-							<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-								<li class="dropdown-header text-start">
-									<h6>Filter</h6>
-								</li>
+          <div class="card">
+            <div class="filter">
+              <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                <li class="dropdown-header text-start">
+                  <h6>Filter</h6>
+                </li>
 
-								<li><a class="dropdown-item" href="#">Today</a></li>
-								<li><a class="dropdown-item" href="#">This Month</a></li>
-								<li><a class="dropdown-item" href="#">This Year</a></li>
-							</ul>
-						</div>
+                <li><a class="dropdown-item" href="#">Today</a></li>
+                <li><a class="dropdown-item" href="#">This Month</a></li>
+                <li><a class="dropdown-item" href="#">This Year</a></li>
+              </ul>
+            </div>
 
-						<div class="card-body pb-0">
-							<h5 class="card-title">
-								Budget Report <span>| This Month</span>
-							</h5>
+            <div class="card-body pb-0">
+              <h5 class="card-title">Budget Report <span>| This Month</span></h5>
 
-							<div id="budgetChart" style="min-height: 400px;" class="echart"></div>
+              <div id="budgetChart" style="min-height: 400px;" class="echart"></div>
 
-							<script>
+              <script>
                 document.addEventListener("DOMContentLoaded", () => {
                   var budgetChart = echarts.init(document.querySelector("#budgetChart")).setOption({
                     legend: {
@@ -778,9 +774,8 @@
                 });
               </script>
 
-						</div>
-					</div>
-					<!-- End Budget Report -->
+            </div>
+          </div><!-- End Budget Report -->
 
 					<!-- Website Traffic -->
 					<div class="card">
@@ -897,12 +892,13 @@
 	<script
 		src="${pageContext.request.contextPath}/js/bootstrap.bundle.min.js"></script>
 
-	<script src="/js/echarts.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/echarts.min.js"></script>
+
 
 	<script src="/js/tinymce.min.js"></script>
 	<script src="/js/validate.js"></script>
 	<!-- Template Main JS File -->
-	<script src="/js/main.js"></script>
+	<script src="${pageContext.request.contextPath}/js/main.js"></script>
 
 </body>
 

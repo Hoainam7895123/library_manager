@@ -51,8 +51,8 @@
 
 		<div class="d-flex align-items-center justify-content-between">
 			<a href="books" class="logo d-flex align-items-center"> <img
-				src="assets/img/logo.png" alt=""> <span
-				class="d-none d-lg-block">NiceAdmin</span>
+				src="img/logox.png" alt=""> <span
+				class="d-none d-lg-block">Manage Library</span>
 			</a> <i class="bi bi-list toggle-sidebar-btn"></i>
 		</div>
 		<!-- End Logo -->
@@ -210,9 +210,9 @@
 				<li class="nav-item dropdown pe-3"><a
 					class="nav-link nav-profile d-flex align-items-center pe-0"
 					href="#" data-bs-toggle="dropdown"> <img
-						src="assets/img/profile-img.jpg" alt="Profile"
+						src="img/profile-img.jpg" alt="Profile"
 						class="rounded-circle"> <span
-						class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
+						class="d-none d-md-block dropdown-toggle ps-2">Admin</span>
 				</a> <!-- End Profile Iamge Icon -->
 
 					<ul
@@ -249,8 +249,7 @@
 						</li>
 
 						<li><a class="dropdown-item d-flex align-items-center"
-							href="#"> <i class="bi bi-box-arrow-right"></i> <span>Sign
-									Out</span>
+							href="/library_manager/login"> <i class="bi bi-box-arrow-right"></i> <span>Đăng xuất</span>
 						</a></li>
 
 					</ul> <!-- End Profile Dropdown Items --></li>
@@ -411,11 +410,11 @@
 		<div class="pagetitle">
 			<div class="row">
 				<div class="col-10">
-					<h1>Thêm sách</h1>
+					<h1>Sửa sách</h1>
 					<nav>
 						<ol class="breadcrumb">
 							<li class="breadcrumb-item"><a href="books">Home</a></li>
-							<li class="breadcrumb-item active">Thêm sách</li>
+							<li class="breadcrumb-item active">Sửa sách</li>
 						</ol>
 					</nav>
 				</div>
