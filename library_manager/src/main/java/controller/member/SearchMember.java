@@ -9,11 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.BookFunctionImpl;
 import dao.MemberDAOFunction;
 import dao.MemberFunctionImpl;
-import dao.BookFunction;
-import model.Book;
 import model.Member;
 import util.ConnectionPool;
 import util.ConnectionPoolImpl;
@@ -36,7 +33,8 @@ public class SearchMember extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	    req.setCharacterEncoding("UTF-8"); // Set request encoding to UTF-8
+	    res.setContentType("text/html; charset=UTF-8"); // Set response encoding to UTF-8
 		String name = req.getParameter("searchName");
 		
 		ConnectionPool cp = new ConnectionPoolImpl();

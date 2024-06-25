@@ -32,6 +32,8 @@ public class EditMember extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+	    req.setCharacterEncoding("UTF-8"); // Set request encoding to UTF-8
+	    res.setContentType("text/html; charset=UTF-8"); // Set response encoding to UTF-8
 		String memid = req.getParameter("memberID");
 		
 		ConnectionPool cp = new ConnectionPoolImpl();
@@ -51,6 +53,8 @@ public class EditMember extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+	    req.setCharacterEncoding("UTF-8"); // Set request encoding to UTF-8
+	    res.setContentType("text/html; charset=UTF-8"); // Set response encoding to UTF-8
 		ConnectionPool cp = new ConnectionPoolImpl();
         MemberDAOFunction<Member> f = new MemberFunctionImpl(cp);
         int member_id = Integer.parseInt(req.getParameter("memberID"));

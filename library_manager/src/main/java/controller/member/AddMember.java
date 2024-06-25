@@ -28,16 +28,17 @@ public class AddMember extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+	    req.setCharacterEncoding("UTF-8"); // Set request encoding to UTF-8
+	    resp.setContentType("text/html; charset=UTF-8"); // Set response encoding to UTF-8
 		ConnectionPool cp = new ConnectionPoolImpl();
         MemberDAOFunction<Member> m = new MemberFunctionImpl(cp);
-        int mem_id = Integer.parseInt(req.getParameter("memberID"));
         String name = req.getParameter("name");
         String address = req.getParameter("address");
         String phone = req.getParameter("phone");
         String email = req.getParameter("email");
 
         
-        Member a = new Member(mem_id, name, address, phone, email);
+        Member a = new Member(name, address, phone, email);
         boolean isSuccess = m.addMember(a);
         
         if (isSuccess) {
