@@ -62,7 +62,7 @@
 
 		<div class="search-bar">
 			<form class="search-form d-flex align-items-center" method="GET"
-				action="action="${pageContext.request.contextPath}/search-member">
+				action="${pageContext.request.contextPath}/search-member">
 				<input type="text" name="searchName" placeholder="Tìm kiếm"
 					title="Enter search keyword">
 				<button type="submit" title="Search">
@@ -213,9 +213,9 @@
 				<li class="nav-item dropdown pe-3"><a
 					class="nav-link nav-profile d-flex align-items-center pe-0"
 					href="#" data-bs-toggle="dropdown"> <img
-						src="assets/img/profile-img.jpg" alt="Profile"
+						src="img/profile-img.jpg" alt="Profile"
 						class="rounded-circle"> <span
-						class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
+						class="d-none d-md-block dropdown-toggle ps-2">Admin</span>
 				</a> <!-- End Profile Iamge Icon -->
 
 					<ul
@@ -252,8 +252,7 @@
 						</li>
 
 						<li><a class="dropdown-item d-flex align-items-center"
-							href="#"> <i class="bi bi-box-arrow-right"></i> <span>Sign
-									Out</span>
+							href="/library_manager/login"> <i class="bi bi-box-arrow-right"></i> <span>Đăng xuất</span>
 						</a></li>
 
 					</ul> <!-- End Profile Dropdown Items --></li>
@@ -278,26 +277,29 @@
         </a>
       </li><!-- End Dashboard Nav -->
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-menu-button-wide"></i><span>Components</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li><a href="/library_manager/list-return-book" > <i
-							class="bi bi-circle"></i><span>Quản lý mượn sách</span>
+			<li class="nav-item"><a class="nav-link collapsed"
+				data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+					<i class="bi bi-menu-button-wide"></i><span>Quản lý mượn - trả sách</span><i
+					class="bi bi-chevron-down ms-auto"></i>
+			</a>
+				<ul id="components-nav" class="nav-content collapse "
+					data-bs-parent="#sidebar-nav">
+					<li><a href="/library_manager/list-return-book"> <i
+							class="bi bi-circle"></i><span>Quản lý trả sách</span>
 					</a></li>
-					<li><a href="/library_manager/manage-borrow-book" class="active" >
-							<i class="bi bi-circle"></i><span>Quản lý trả sách</span>
+					<li><a href="/library_manager/manage-borrow-book"
+						> <i class="bi bi-circle"></i><span>Quản
+								lý mượn sách</span>
 					</a></li>
 					<li><a href="/library_manager/overdue-book"> <i
 							class="bi bi-circle"></i><span>Quản lý sách quá hạn</span>
 					</a></li>
-        </ul>
-      </li><!-- End Components Nav -->
+				</ul></li>
+      <!-- End Components Nav -->
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="books">
-          <i class="bi bi-layout-text-window-reverse"></i><span>Quản lý sách</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-journal-text"></i><span>Quản lý sách</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="forms-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
           <li>
@@ -310,7 +312,7 @@
 
       <li class="nav-item">
         <a class="nav-link " data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-journal-text"></i><span>Quản lý thành viên</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-layout-text-window-reverse"></i><span>Quản lý thành viên</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="tables-nav" class="nav-content collapse show" data-bs-parent="#sidebar-nav">
           <li>
@@ -321,51 +323,29 @@
         </ul>
       </li><!-- End Tables Nav -->
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-bar-chart"></i><span>Charts</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="charts-chartjs.html">
-              <i class="bi bi-circle"></i><span>Chart.js</span>
-            </a>
-          </li>
-          <li>
-            <a href="charts-apexcharts.html">
-              <i class="bi bi-circle"></i><span>ApexCharts</span>
-            </a>
-          </li>
-          <li>
-            <a href="charts-echarts.html">
-              <i class="bi bi-circle"></i><span>ECharts</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Charts Nav -->
+			<li class="nav-item"><a class="nav-link collapsed"
+				data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
+					<i class="bi bi-person"></i><span>Quản lý Tác giả</span><i
+					class="bi bi-chevron-down ms-auto"></i>
+			</a>
+				<ul id="charts-nav" class="nav-content collapse "
+					data-bs-parent="#sidebar-nav">
+					<li><a href="/library_manager/authors"> <i class="bi bi-circle"></i><span>Danh sách Tác giả</span>
+					</a></li>
+				</ul></li>
+			<!-- End Charts Nav -->
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-gem"></i><span>Icons</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="icons-bootstrap.html">
-              <i class="bi bi-circle"></i><span>Bootstrap Icons</span>
-            </a>
-          </li>
-          <li>
-            <a href="icons-remix.html">
-              <i class="bi bi-circle"></i><span>Remix Icons</span>
-            </a>
-          </li>
-          <li>
-            <a href="icons-boxicons.html">
-              <i class="bi bi-circle"></i><span>Boxicons</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Icons Nav -->
+			<li class="nav-item"><a class="nav-link collapsed"
+				data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
+					<i class="bi bi-gem"></i><span>Quản lý thể loại</span><i
+					class="bi bi-chevron-down ms-auto"></i>
+			</a>
+				<ul id="icons-nav" class="nav-content collapse "
+					data-bs-parent="#sidebar-nav">
+					<li><a href="/library_manager/categories"> <i
+							class="bi bi-circle"></i><span>Danh sách thể loại</span>
+					</a></li>
+				</ul></li><!-- End Icons Nav -->
 
       <li class="nav-heading">Pages</li>
 
